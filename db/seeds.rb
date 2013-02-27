@@ -1,7 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#Initalize the wilderlings cards
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "Silence The Wall")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "Rattleshirt's Raiders")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "Preemptive Raid")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "Skinchanger Scout")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "The Horde Descends")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "Crow Killers")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "Mammoth Riders")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "A King Beyond The Wall")
+Card.create(:deck_type_id => DeckType::WILDERLINGS, :name => "Massing On The Milkwater")

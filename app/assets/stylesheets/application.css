@@ -11,3 +11,20 @@
  *= require_self
  *= require_tree .
  */
+
+body {
+  background-color: black;
+  color: white;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#header {
+  background:url('/assets/banner.jpg')  no-repeat top center;
+  width: 100%;
+  height: 129px;
+  margin: 20px;
+}

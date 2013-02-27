@@ -1,15 +1,15 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: game_of_thrones
+  database: game_of_thrones_development
   pool: 5
-  username: game_of_thrones
+  username: stark
   password:
 
 test: &test
   adapter: postgresql
   encoding: unicode
-  database: game_of_thrones
+  database: game_of_thrones_test
   pool: 5
-  username: game_of_thrones
+  username: stark
   password:
