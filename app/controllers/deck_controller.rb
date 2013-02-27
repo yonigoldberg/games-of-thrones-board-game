@@ -3,21 +3,25 @@ class DeckController < ApplicationController
     game_id = params[:game_id]
     deck_type_id = params[:deck_type_id]
     user_name = params[:user_name]
-    place_top_card_at_buttom = params[:place_top_card_at_buttom] == 'true' ? true : false
-
-
 
     if (game_id.blank? || deck_type_id.blank? || user_name.blank?)
       render :json => "missing params"
       return
     end
-
     deck = Deck.where({:deck_type_id => deck_type_id, :game_id => game_id}).first
-
     card = deck.peek(user_name)
-    if (place_top_card_at_buttom == true)
-      deck.place_top_card_at_the_buttom
-    end
     render :json => card
+  end
+
+  def place_top_card_at_buttom
+    game_id = params[:game_id]
+    deck_type_id = params[:deck_type_id]
+    if (game_id.blank? || deck_type_id.blank?)
+      render :nothing => false
+    else
+      deck = Deck.where({:deck_type_id => deck_type_id, :game_id => game_id}).first
+      deck.place_top_card_at_the_buttom
+      render :nothing => true
+    end
   end
 end

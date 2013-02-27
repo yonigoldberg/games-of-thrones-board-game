@@ -3,59 +3,80 @@
 
 
 <div id='wilderling-deck'>
-  <h3> Wilderlings Deck </h3>
-  <% wilderling_deck = @game.wilderling_deck %>
-  <% unless (wilderling_deck.last_viewed_at.blank?) %>
-  <h3>  Last viewed by <%= wilderling_deck.last_viewed_by %> @ <%= wilderling_deck.last_viewed_at %></h3>
+  <h3> The Wilderlings' Deck </h3>
+  <% wilderlings_deck = @game.wilderling_deck %>
+  <% unless (wilderlings_deck.last_viewed_at.blank?) %>
+  <h3> This deck has been viewed <%=wilderlings_deck.views%> times </h3>
+  <h3>  Last viewed by <%= wilderlings_deck.last_viewed_by %> @ <%= wilderlings_deck.last_viewed_at %></h3>
+  <% else %>
+    <h3> No one has viewed the cards in this deck</h3>
   <% end%>
 
-<form id="wildlings_form">
-      <input type="hidden" id='deck_type_id' name="deck_type_id" value= "<%= wilderling_deck.deck_type_id%>"/>
+  <form id="wildlings_form">
+    <input type="hidden" id='deck_type_id' name="deck_type_id" value= "<%= wilderlings_deck.deck_type_id%>"/>
 
-      <input type="hidden" id='game_id' name="game_id" value= "<%= @game.id %>"/>
-      <%= label_tag(:user_name, "Enter your name to view the top card:") %> <%= text_field_tag(:user_name) %><br>
+    <input type="hidden" id='game_id' name="game_id" value= "<%= @game.id %>"/>
+        <%= label_tag(:user_name, "Enter your name to view the top card:") %> <%= text_field_tag(:user_name) %><br>
 
-      <input type="button" onclick="peekWildlingsCard(false)" id="draw_top" value="Draw top card">
-</form>
+    <input type="button" onclick="peekWildlingsCard()" id="draw_top" value="Draw top card">
+  </form>
+</div>
 
-<div id="wildlings_result">
-  Card Name: <div id="wildlings_card_result"> </div>
-  <div id="buttom_control">
-    <button type="button" id="buttom_button" onclick="peekWildlingsCard(true)">
-      Put the card at the buttom of the deck
-    </button>
+  <div id="wildlings_result">
+    Card Name: <div id="wildlings_card_result"> </div>
+    <div id="buttom_control">
+      <button type="button" id="buttom_button" onclick="placeTopCardAtButtom()">
+        Put the card at the buttom of the deck
+      </button>
+    </div>
   </div>
-</div>
-</div>
 
 
 <script>
 $('#wildlings_result').hide()
+var form = $('#wildlings_form');
+$('#user_name').keypress(function(e) {
+  if (e.keyCode == 13) {
+    //
+  }
+});
 
-function peekWildlingsCard(place_top_card_at_buttom) {
-  var form = $('#wildlings_form');
+
+//TODO make it more dry
+function peekWildlingsCard() {
+
   $.ajax({
     type: "get",
     url: "/deck/view_top_card",
     data: "game_id=" + $('#game_id', form).val() +
             "&deck_type_id=" +$('#deck_type_id', form).val() +
-            "&user_name=" +$('#user_name', form).val() +
-            "&place_top_card_at_buttom=" + place_top_card_at_buttom
-    ,
-    success:function(result) {
-      if (place_top_card_at_buttom == true) {
-        $('#buttom_button').hide()
-        $('#buttom_control').text('Card placed at the buttom')
-      }
+            "&user_name=" +$('#user_name', form).val(),
+    success: function(result) {
       $('#wildlings_card_result').text(result['name'])
-       $('#draw_top').hide()
+     $('#wildlings_form').hide()
       $('#wildlings_result').show()
     },
-    error:function(err) {
+    error: function(err) {
       window.alert("Something went wrong. Did you enter your name?");
     }
   });
-};
+}
+
+function placeTopCardAtButtom() {
+ $.ajax({
+    type: "get",
+    url: "/deck/place_top_card_at_buttom",
+    data: "game_id=" + $('#game_id', form).val() +
+            "&deck_type_id=" +$('#deck_type_id', form).val(),
+    success:function(result) {
+        $('#buttom_button').hide()
+        $('#buttom_control').text('Card placed at the buttom')
+    },
+    error:function(err) {
+      window.alert("Something went wrong. Please try again");
+    }
+  });
+}
 </script>
 
 

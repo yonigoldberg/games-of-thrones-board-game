@@ -9,6 +9,7 @@ class CreateDecks < ActiveRecord::Migration
       t.integer :deck_type_id, :null => false
       t.references :game, :null => false
       t.text :cards_order
+      t.integer :views, :default => 0
       t.datetime :last_viewed_at
       t.text :last_viewed_by
       t.timestamps

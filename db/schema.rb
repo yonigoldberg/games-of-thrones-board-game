@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130224000515) do
+ActiveRecord::Schema.define(:version => 20130223224145) do
 
   create_table "cards", :force => true do |t|
     t.integer  "deck_type_id", :null => false
@@ -23,13 +23,14 @@ ActiveRecord::Schema.define(:version => 20130224000515) do
   add_index "cards", ["deck_type_id"], :name => "index_cards_on_deck_type_id"
 
   create_table "decks", :force => true do |t|
-    t.integer  "deck_type_id",   :null => false
-    t.integer  "game_id",        :null => false
+    t.integer  "deck_type_id",                  :null => false
+    t.integer  "game_id",                       :null => false
     t.text     "cards_order"
+    t.integer  "integer",        :default => 0
     t.datetime "last_viewed_at"
     t.text     "last_viewed_by"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "decks", ["game_id", "deck_type_id"], :name => "index_decks_on_game_id_and_deck_type_id", :unique => true

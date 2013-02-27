@@ -8,7 +8,7 @@ class GameController < ApplicationController
   def show
     game_name = params[:name]
     @game = Game.find_by_name(game_name)
-
+    redirect_to "/" if (@game.blank?)
   end
 
   def new_game

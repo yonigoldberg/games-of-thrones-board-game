@@ -1,5 +1,5 @@
 class Deck < ActiveRecord::Base
-  attr_accessible :cards_order, :deck_type_id, :last_viewed_at, :last_viewed_by, :game
+  attr_accessible :views, :cards_order, :deck_type_id, :last_viewed_at, :last_viewed_by, :game
   belongs_to :game
   serialize :cards_order
   validates_presence_of :game, :deck_type_id
@@ -9,7 +9,8 @@ class Deck < ActiveRecord::Base
   def peek(peeked_by)
     unless (self.cards_order.blank?)
       card = self.cards.find {|x| x.id == self.cards_order.first}
-      update_attributes(:last_viewed_by => peeked_by, :last_viewed_at => DateTime.now)
+      update_attributes(:last_viewed_by => peeked_by, :last_viewed_at => DateTime.now,
+       :views => (self.views + 1))
       card
     end
   end
@@ -19,7 +20,6 @@ class Deck < ActiveRecord::Base
   end
 
   def place_top_card_at_the_buttom
-    puts ("NO WAY!")
      update_attributes(:cards_order => cards_order.rotate)
   end
 
