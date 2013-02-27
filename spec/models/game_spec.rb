@@ -22,9 +22,9 @@ describe 'game' do
     end
 
     describe 'creating new game' do
-       it 'has a wilderling deck by default' do
+       it 'has a wildling deck by default' do
         @game1.decks.size.should == 1
-        @game1.decks.first.deck_type_id.should == DeckType::WILDERLINGS
+        @game1.decks.first.deck_type_id.should == DeckType::wildLINGS
       end
 
       it 'has access to all the decks that are part of the current game' do
@@ -34,8 +34,8 @@ describe 'game' do
     end
 
     describe 'basic functionalty' do
-      it 'return the wilderling deck' do
-        @game1.wilderling_deck.deck_type_id.should == DeckType::WILDERLINGS
+      it 'return the wildling deck' do
+        @game1.wildling_deck.deck_type_id.should == DeckType::wildLINGS
       end
     end
 end

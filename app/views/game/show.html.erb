@@ -2,18 +2,18 @@
  <h1> <%= @game.name %></h1>
 
 
-<div id='wilderling-deck'>
-  <h3> The Wilderlings' Deck </h3>
-  <% wilderlings_deck = @game.wilderling_deck %>
-  <% unless (wilderlings_deck.last_viewed_at.blank?) %>
-  <h3> This deck has been viewed <%=wilderlings_deck.views%> times </h3>
-  <h3>  Last viewed by <%= wilderlings_deck.last_viewed_by %> @ <%= wilderlings_deck.last_viewed_at %></h3>
+<div id='wildling-deck'>
+  <h3> The Wildlings' Deck </h3>
+  <% wildlings_deck = @game.wildling_deck %>
+  <% unless (wildlings_deck.last_viewed_at.blank?) %>
+  <h3> This deck has been viewed <%=wildlings_deck.views%> times </h3>
+  <h3>  Last viewed by <%= wildlings_deck.last_viewed_by %> @ <%= wildlings_deck.last_viewed_at %></h3>
   <% else %>
     <h3> No one has viewed the cards in this deck</h3>
   <% end%>
 
   <form id="wildlings_form">
-    <input type="hidden" id='deck_type_id' name="deck_type_id" value= "<%= wilderlings_deck.deck_type_id%>"/>
+    <input type="hidden" id='deck_type_id' name="deck_type_id" value= "<%= wildlings_deck.deck_type_id%>"/>
 
     <input type="hidden" id='game_id' name="game_id" value= "<%= @game.id %>"/>
         <%= label_tag(:user_name, "Enter your name to view the top card:") %> <%= text_field_tag(:user_name) %><br>
@@ -28,6 +28,10 @@
       <button type="button" id="buttom_button" onclick="placeTopCardAtButtom()">
         Put the card at the buttom of the deck
       </button>
+      <button type="button" id="buttom_button" onclick="placeTopCardAtTop()">
+        Put the card at the top of the deck
+      </button>
+
     </div>
   </div>
 
@@ -60,6 +64,10 @@ function peekWildlingsCard() {
       window.alert("Something went wrong. Did you enter your name?");
     }
   });
+}
+
+function placeTopCardAtTop() {
+  location.reload();
 }
 
 function placeTopCardAtButtom() {

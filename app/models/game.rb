@@ -4,13 +4,13 @@ class Game < ActiveRecord::Base
   validates :name, :uniqueness => true, :presence => true
   after_save :initialize_decks
 
-  def wilderling_deck
-    decks.find {|x| x.deck_type_id == DeckType::WILDERLINGS}
+  def wildling_deck
+    decks.find {|x| x.deck_type_id == DeckType::WILDLINGS}
   end
 
   private
   def initialize_decks
-    decks.create(:game => self, :deck_type_id => DeckType::WILDERLINGS)
+    decks.create(:game => self, :deck_type_id => DeckType::WILDLINGS)
   end
 
 end
